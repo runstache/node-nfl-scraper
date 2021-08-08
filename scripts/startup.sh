@@ -1,1 +1,2 @@
-npm install --global yarn
+cd src
+yarn install
