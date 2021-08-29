@@ -223,7 +223,7 @@ async function getReceiving(receiving_table) {
     stat.receivingAverage = htmlhelper.getHtml(body, 'td.avg');
     stat.touchdowns = htmlhelper.getHtml(body, 'td.td');
     stat.receptions = htmlhelper.getHtml(body, 'td.rec');
-    stat.longrush = htmlhelper.getHtml(body, 'td.long');
+    stat.longcatch = htmlhelper.getHtml(body, 'td.long');
     stat.targets = htmlhelper.getHtml(body, 'td.tgts');
     return stat;
   }).get();
