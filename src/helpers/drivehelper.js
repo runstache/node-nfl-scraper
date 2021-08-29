@@ -120,11 +120,11 @@ async function getYards(playText) {
     var matches = playText.match(regex);
     var yardage = 0;
     if (matches && matches != null && matches.length > 0) {
-      yardage = matches[0].replace('yards', '').replace('for', '');
+      yardage = matches[0].replace('yards', '').replace('for', '').replace(/[\t\n\r]/gm, '');
     } else {
       matches = playText.match(regex2);
       if (matches && matches != null && matches.length > 0) {
-        yardage = matches[0].replace('yds', '').replace('for', '');
+        yardage = matches[0].replace('yds', '').replace('for', '').replace(/[\t\n\r]/gm, '');
       } else {
         return 0;
       }
