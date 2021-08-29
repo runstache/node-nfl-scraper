@@ -5,7 +5,7 @@ const htmlhelper = require('./htmlhelper.js');
 
 async function getPlayer(url) {
   //Replace the Player Bio
-
+  await new Promise(resolve => setTimeout(resolve, 5000));
   bio_url = url.replace('player/', 'player/bio/');
 
   // Go get the data
