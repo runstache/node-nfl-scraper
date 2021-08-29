@@ -8,7 +8,9 @@ const teamhelper = require('./helpers/teamhelper.js');
 var weekNumber = process.argv[2];
 var yearValue = process.argv[3];
 var seasonType = process.argv[4];
-var scheduleOnly = process.argv[5];
+var scheduleOnly = parseInt(process.argv[5]);
+
+var outputDirectory = 'output/games/';
 
 
 let url = 'https://www.espn.com/nfl/schedule/_/week/' + weekNumber + '/year/' + yearValue + '/seasontype/' + seasonType;
@@ -82,7 +84,7 @@ client.get(url).then(({ data }) => {
     const fs = require('fs');
     // Output the game
     console.log('OUTPUTING GAME ' + game.gameid);
-    fs.writeFileSync('output/games/' + game.gameid + '.json', JSON.stringify(game));
+    fs.writeFileSync(outputDirectory + game.gameid + '.json', JSON.stringify(game));
     return game;
   }).get();
 
