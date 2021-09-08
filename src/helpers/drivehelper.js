@@ -22,13 +22,13 @@ async function getDriveStats(drive_url) {
     if (drive_title.toLowerCase().includes('blocked') || drive_title.toLowerCase().includes('downs') || drive_title.toLowerCase().includes('missed')) {
       turnover++;
     }
-    
+
     if (image_url) {
       let team = await getTeamAbbreviation(image_url);
 
       let bigplays = await getBigPlays(body);
 
-      
+
 
       if (bigplays) {
         for (let i = 0; i < bigplays.length; i++) {
@@ -62,13 +62,17 @@ async function getDriveStats(drive_url) {
 }
 
 async function getTeamAbbreviation(url) {
-  let parts = url.split('/');
-  if (parts && parts.length > 0) {
-    let length = parts.length;
-    let lastPiece = parts[length - 1];
-    let pieces = lastPiece.split('&');
-    if (pieces && pieces.length > 0) {
-      return pieces[0].replace('.png', '');
+  if (url) {
+    let parts = url.split('/');
+    if (parts && parts.length > 0) {
+      let length = parts.length;
+      let lastPiece = parts[length - 1];
+      let pieces = lastPiece.split('&');
+      if (pieces && pieces.length > 0) {
+        return pieces[0].replace('.png', '');
+      } else {
+        return url;
+      }
     } else {
       return url;
     }
