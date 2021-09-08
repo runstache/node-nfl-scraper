@@ -260,196 +260,201 @@ async function getFumbles(fumbles_table) {
 }
 
 async function getDefense(defense_table) {
-    // Get the Table Body
-    let table_body = htmlhelper.getHtml(defense_table, 'tbody');
-    const $ = cheerio.load(table_body, { xmlMode: true });
-  
-    const defense_stats = $('tr:not(.highlight)').map(async function (id, ele) {
-      let body = $(this).html();
-      let stat = {};
-  
-      let player_url_column = htmlhelper.getHtml(body, 'td.name');
-      if (player_url_column) {
-        let player_url = htmlhelper.getAttributeValue(player_url_column, 'a', 'href');
+  // Get the Table Body
+  let table_body = htmlhelper.getHtml(defense_table, 'tbody');
+  const $ = cheerio.load(table_body, { xmlMode: true });
+
+  const defense_stats = $('tr:not(.highlight)').map(async function (id, ele) {
+    let body = $(this).html();
+    let stat = {};
+
+    let player_url_column = htmlhelper.getHtml(body, 'td.name');
+    if (player_url_column) {
+      let player_url = htmlhelper.getAttributeValue(player_url_column, 'a', 'href');
+      if (player_url) {
         let player = await playerhelper.getPlayer(player_url);
-  
         stat.player = player;
-  
-        stat.totalTackles = htmlhelper.getHtml(body, 'td.tot');
-        stat.soloTackles = htmlhelper.getHtml(body, 'td.solo');
-        stat.sacks = htmlhelper.getHtml(body, 'td.sacks');
-        stat.tacklesForLoss = htmlhelper.getHtml(body, 'td.tfl');
-        stat.qbHits = htmlhelper.getHtml(body, 'td.hts');
-        stat.touchdowns = htmlhelper.getHtml(body, 'td.td');
-        stat.passesDefended = htmlhelper.getHtml(body, 'td.pd');
-  
+      } else {
+        console.log('NO PLAYER');
       }
-      return stat;
-    }).get();
-  
-    return Promise.all(defense_stats);
+
+      
+
+      stat.totalTackles = htmlhelper.getHtml(body, 'td.tot');
+      stat.soloTackles = htmlhelper.getHtml(body, 'td.solo');
+      stat.sacks = htmlhelper.getHtml(body, 'td.sacks');
+      stat.tacklesForLoss = htmlhelper.getHtml(body, 'td.tfl');
+      stat.qbHits = htmlhelper.getHtml(body, 'td.hts');
+      stat.touchdowns = htmlhelper.getHtml(body, 'td.td');
+      stat.passesDefended = htmlhelper.getHtml(body, 'td.pd');
+
+    }
+    return stat;
+  }).get();
+
+  return Promise.all(defense_stats);
 
 }
 
 async function getInterceptions(interception_table) {
-      // Get the Table Body
-      let table_body = htmlhelper.getHtml(interception_table, 'tbody');
-      const $ = cheerio.load(table_body, { xmlMode: true });
-    
-      const interception_stats = $('tr:not(.highlight)').map(async function (id, ele) {
-        let body = $(this).html();
-        let stat = {};
-    
-        let player_url_column = htmlhelper.getHtml(body, 'td.name');
-        if (player_url_column) {
-          let player_url = htmlhelper.getAttributeValue(player_url_column, 'a', 'href');
-          let player = await playerhelper.getPlayer(player_url);
-    
-          stat.player = player;
-    
-          stat.interceptions = htmlhelper.getHtml(body, 'td.int');
-          stat.yards = htmlhelper.getHtml(body, 'td.yds');
-          stat.touchdowns = htmlhelper.getHtml(body, 'td.td');  
-        }
-        return stat;
-      }).get();
-    
-      return Promise.all(interception_stats);
+  // Get the Table Body
+  let table_body = htmlhelper.getHtml(interception_table, 'tbody');
+  const $ = cheerio.load(table_body, { xmlMode: true });
+
+  const interception_stats = $('tr:not(.highlight)').map(async function (id, ele) {
+    let body = $(this).html();
+    let stat = {};
+
+    let player_url_column = htmlhelper.getHtml(body, 'td.name');
+    if (player_url_column) {
+      let player_url = htmlhelper.getAttributeValue(player_url_column, 'a', 'href');
+      let player = await playerhelper.getPlayer(player_url);
+
+      stat.player = player;
+
+      stat.interceptions = htmlhelper.getHtml(body, 'td.int');
+      stat.yards = htmlhelper.getHtml(body, 'td.yds');
+      stat.touchdowns = htmlhelper.getHtml(body, 'td.td');
+    }
+    return stat;
+  }).get();
+
+  return Promise.all(interception_stats);
 
 }
 
 async function getKickReturns(kick_returns_table) {
-        // Get the Table Body
-        let table_body = htmlhelper.getHtml(kick_returns_table, 'tbody');
-        const $ = cheerio.load(table_body, { xmlMode: true });
-      
-        const kick_return_stats = $('tr:not(.highlight)').map(async function (id, ele) {
-          let body = $(this).html();
-          let stat = {};
-      
-          let player_url_column = htmlhelper.getHtml(body, 'td.name');
-          if (player_url_column) {
-            let player_url = htmlhelper.getAttributeValue(player_url_column, 'a', 'href');
-            let player = await playerhelper.getPlayer(player_url);
-      
-            stat.player = player;
-      
-            stat.kickReturns = htmlhelper.getHtml(body, 'td.no');
-            stat.yards = htmlhelper.getHtml(body, 'td.yds');
-            stat.averageReturn = htmlhelper.getHtml(body, 'td.avg');  
-            stat.longReturn = htmlhelper.getHtml(body, 'td.long');  
-            stat.touchdowns = htmlhelper.getHtml(body, 'td.td');  
-          }
-          return stat;
-        }).get();
-      
-        return Promise.all(kick_return_stats);
+  // Get the Table Body
+  let table_body = htmlhelper.getHtml(kick_returns_table, 'tbody');
+  const $ = cheerio.load(table_body, { xmlMode: true });
+
+  const kick_return_stats = $('tr:not(.highlight)').map(async function (id, ele) {
+    let body = $(this).html();
+    let stat = {};
+
+    let player_url_column = htmlhelper.getHtml(body, 'td.name');
+    if (player_url_column) {
+      let player_url = htmlhelper.getAttributeValue(player_url_column, 'a', 'href');
+      let player = await playerhelper.getPlayer(player_url);
+
+      stat.player = player;
+
+      stat.kickReturns = htmlhelper.getHtml(body, 'td.no');
+      stat.yards = htmlhelper.getHtml(body, 'td.yds');
+      stat.averageReturn = htmlhelper.getHtml(body, 'td.avg');
+      stat.longReturn = htmlhelper.getHtml(body, 'td.long');
+      stat.touchdowns = htmlhelper.getHtml(body, 'td.td');
+    }
+    return stat;
+  }).get();
+
+  return Promise.all(kick_return_stats);
 
 }
 
 async function getPuntReturns(punt_returns_table) {
-        // Get the Table Body
-        let table_body = htmlhelper.getHtml(punt_returns_table, 'tbody');
-        const $ = cheerio.load(table_body, { xmlMode: true });
-      
-        const punt_return_stats = $('tr:not(.highlight)').map(async function (id, ele) {
-          let body = $(this).html();
-          let stat = {};
-      
-          let player_url_column = htmlhelper.getHtml(body, 'td.name');
-          if (player_url_column) {
-            let player_url = htmlhelper.getAttributeValue(player_url_column, 'a', 'href');
-            let player = await playerhelper.getPlayer(player_url);
-      
-            stat.player = player;
-      
-            stat.kickReturns = htmlhelper.getHtml(body, 'td.no');
-            stat.yards = htmlhelper.getHtml(body, 'td.yds');
-            stat.averageReturn = htmlhelper.getHtml(body, 'td.avg');  
-            stat.longReturn = htmlhelper.getHtml(body, 'td.long');  
-            stat.touchdowns = htmlhelper.getHtml(body, 'td.td');  
-          }
-          return stat;
-        }).get();
-      
-        return Promise.all(punt_return_stats);
+  // Get the Table Body
+  let table_body = htmlhelper.getHtml(punt_returns_table, 'tbody');
+  const $ = cheerio.load(table_body, { xmlMode: true });
+
+  const punt_return_stats = $('tr:not(.highlight)').map(async function (id, ele) {
+    let body = $(this).html();
+    let stat = {};
+
+    let player_url_column = htmlhelper.getHtml(body, 'td.name');
+    if (player_url_column) {
+      let player_url = htmlhelper.getAttributeValue(player_url_column, 'a', 'href');
+      let player = await playerhelper.getPlayer(player_url);
+
+      stat.player = player;
+
+      stat.kickReturns = htmlhelper.getHtml(body, 'td.no');
+      stat.yards = htmlhelper.getHtml(body, 'td.yds');
+      stat.averageReturn = htmlhelper.getHtml(body, 'td.avg');
+      stat.longReturn = htmlhelper.getHtml(body, 'td.long');
+      stat.touchdowns = htmlhelper.getHtml(body, 'td.td');
+    }
+    return stat;
+  }).get();
+
+  return Promise.all(punt_return_stats);
 
 }
 
 async function getKicking(kicking_table) {
-        // Get the Table Body
-        let table_body = htmlhelper.getHtml(kicking_table, 'tbody');
-        const $ = cheerio.load(table_body, { xmlMode: true });
-      
-        const kicking_stats = $('tr:not(.highlight)').map(async function (id, ele) {
-          let body = $(this).html();
-          let stat = {};
-      
-          let player_url_column = htmlhelper.getHtml(body, 'td.name');
-          if (player_url_column) {
-            let player_url = htmlhelper.getAttributeValue(player_url_column, 'a', 'href');
-            let player = await playerhelper.getPlayer(player_url);
-      
-            stat.player = player;
-      
-            let fg = htmlhelper.getHtml(body, 'td.fg');
-            if (fg) {
-              let parts = fg.split('/');
-              stat.fieldGoalMade = parts[0];
-              stat.fieldGoalAttempts = parts[1];            
-            } else {
-              stat.fieldGoalMade = 0;
-              stat.fieldGoalAttempts = 0;
-            }
+  // Get the Table Body
+  let table_body = htmlhelper.getHtml(kicking_table, 'tbody');
+  const $ = cheerio.load(table_body, { xmlMode: true });
 
-            let xp = htmlhelper.getHtml(body, 'td.xp'); 
+  const kicking_stats = $('tr:not(.highlight)').map(async function (id, ele) {
+    let body = $(this).html();
+    let stat = {};
 
-            if (xp) {
-              let parts = xp.split('/');
-              stat.xpMade = parts[0];
-              stat.xpAttempted = parts[1];
-            
-            } else {
-              stat.xpMade = 0;
-              stat.xpAttempted = 0;
-            }
-            stat.longFieldGoal = htmlhelper.getHtml(body, 'td.long');
-            stat.points = htmlhelper.getHtml(body, 'td.pts');
-          }
-          return stat;
-        }).get();
-      
-        return Promise.all(kicking_stats);
+    let player_url_column = htmlhelper.getHtml(body, 'td.name');
+    if (player_url_column) {
+      let player_url = htmlhelper.getAttributeValue(player_url_column, 'a', 'href');
+      let player = await playerhelper.getPlayer(player_url);
+
+      stat.player = player;
+
+      let fg = htmlhelper.getHtml(body, 'td.fg');
+      if (fg) {
+        let parts = fg.split('/');
+        stat.fieldGoalMade = parts[0];
+        stat.fieldGoalAttempts = parts[1];
+      } else {
+        stat.fieldGoalMade = 0;
+        stat.fieldGoalAttempts = 0;
+      }
+
+      let xp = htmlhelper.getHtml(body, 'td.xp');
+
+      if (xp) {
+        let parts = xp.split('/');
+        stat.xpMade = parts[0];
+        stat.xpAttempted = parts[1];
+
+      } else {
+        stat.xpMade = 0;
+        stat.xpAttempted = 0;
+      }
+      stat.longFieldGoal = htmlhelper.getHtml(body, 'td.long');
+      stat.points = htmlhelper.getHtml(body, 'td.pts');
+    }
+    return stat;
+  }).get();
+
+  return Promise.all(kicking_stats);
 
 }
 
 async function getPunting(punting_table) {
-        // Get the Table Body
-        let table_body = htmlhelper.getHtml(punting_table, 'tbody');
-        const $ = cheerio.load(table_body, { xmlMode: true });
-      
-        const punting_stats = $('tr:not(.highlight)').map(async function (id, ele) {
-          let body = $(this).html();
-          let stat = {};
-      
-          let player_url_column = htmlhelper.getHtml(body, 'td.name');
-          if (player_url_column) {
-            let player_url = htmlhelper.getAttributeValue(player_url_column, 'a', 'href');
-            let player = await playerhelper.getPlayer(player_url);
-      
-            stat.player = player;
-      
-            stat.punts = htmlhelper.getHtml(body, 'td.no');
-            stat.yards = htmlhelper.getHtml(body, 'td.yds');
-            stat.averagePunt = htmlhelper.getHtml(body, 'td.avg');  
-            stat.insideTwenty = htmlhelper.getHtml(body, 'td.in');  
-            stat.longPunt = htmlhelper.getHtml(body, 'td.long');  
-            stat.touchbacks = htmlhelper.getHtml(body, 'td.tb');  
-          }
-          return stat;
-        }).get();
-      
-        return Promise.all(punting_stats);
+  // Get the Table Body
+  let table_body = htmlhelper.getHtml(punting_table, 'tbody');
+  const $ = cheerio.load(table_body, { xmlMode: true });
+
+  const punting_stats = $('tr:not(.highlight)').map(async function (id, ele) {
+    let body = $(this).html();
+    let stat = {};
+
+    let player_url_column = htmlhelper.getHtml(body, 'td.name');
+    if (player_url_column) {
+      let player_url = htmlhelper.getAttributeValue(player_url_column, 'a', 'href');
+      let player = await playerhelper.getPlayer(player_url);
+
+      stat.player = player;
+
+      stat.punts = htmlhelper.getHtml(body, 'td.no');
+      stat.yards = htmlhelper.getHtml(body, 'td.yds');
+      stat.averagePunt = htmlhelper.getHtml(body, 'td.avg');
+      stat.insideTwenty = htmlhelper.getHtml(body, 'td.in');
+      stat.longPunt = htmlhelper.getHtml(body, 'td.long');
+      stat.touchbacks = htmlhelper.getHtml(body, 'td.tb');
+    }
+    return stat;
+  }).get();
+
+  return Promise.all(punting_stats);
 
 }
 
