@@ -26,7 +26,7 @@ client.get(url).then(({ data }) => {
     game.year = yearValue;
     game.weekNumber = weekNumber;
 
-    switch (seasonType) {
+    switch (parseInt(seasonType)) {
       case 1:
         game.type = 'preseason';
         break;
