@@ -15,15 +15,17 @@ var gameId = '401220163'
 //url = 'https://www.espn.com/nfl/schedule/_/week/' + weekNumber + '/year/' + yearValue + '/seasontype/' + seasonType;
 //url = 'https://www.espn.com/nfl/boxscore/_/gameId/' + gameId;
 //url = 'https://www.espn.com/nfl/player/_/id/3122840/deshaun-watson';
-url = 'https://www.espn.com/nfl/matchup?gameId=401220235';
-url = 'https://www.espn.com/nfl/playbyplay/_/gameId/401220235';
+//url = 'https://www.espn.com/nfl/matchup?gameId=401220235';
+//url = 'https://www.espn.com/nfl/playbyplay/_/gameId/401220235';
+//url = 'https://www.espn.com/nfl/team/roster/_/name/nyg'
+url = 'https://www.espn.com/nfl/team/depth/_/name/nyg';
 
-/*
+
 client.get(url).then(({data}) => {
 
   const fs = require('fs');
 
-  fs.writeFileSync('./output/drives.html', data, (err) => {
+  fs.writeFileSync('./output/depth.html', data, (err) => {
     if (err) {
       console.log(err);
     }
@@ -40,5 +42,5 @@ stathelper.getGameStats(url).then((stat) => {
 });
 */
 
-drivehelper.getDriveStats(url).then(stat => console.log(stat));
+//drivehelper.getDriveStats(url).then(stat => console.log(stat));
 
