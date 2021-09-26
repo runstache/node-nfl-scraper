@@ -1,0 +1,12 @@
+{
+  "name": "nfl-stats-scraper",
+  "version": "1.0.0",
+  "description": "Stats Scraper for the NFL",
+  "main": "index.js",
+  "repository": "https://github.com/runstache/node-nfl-scraper",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.10"
+  }
+}
