@@ -75,10 +75,8 @@ client.get(url).then(({ data }) => {
           let bigplays = await drivehelper.getDriveStats(drive_url);
           game.bigplays = bigplays;
 
-        } catch (error) {
-
-          console.log("Error Pulling Game Id: " + game.gameid);
-          console.log(error);
+        } catch (error) {  
+          console.log("Error Pulling Game Id: " + game.gameid);          
         }
       } else {
         console.log('Outputing schedule for ' + game.gameid);
